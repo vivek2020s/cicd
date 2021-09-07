@@ -1,21 +1,21 @@
 steps:
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/aawaz-uat/temp-samortech-com-3:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/aawaz-uat/test-build:$COMMIT_SHA', '.']
 # Push the image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/aawaz-uat/temp-samortech-com-3:$COMMIT_SHA']
+  args: ['push', 'gcr.io/aawaz-uat/test-build:$COMMIT_SHA']
 # Deploy image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'run'
   - 'deploy'
-  - 'temp-samortech-com-3'
+  - 'test-build'
   - '--image'
-  - 'gcr.io/aawaz-uat/temp-samortech-com-2:$COMMIT_SHA'
+  - 'gcr.io/aawaz-uat/test-build:$COMMIT_SHA'
   - '--region'
   - 'us-west1'
   - '--platform'
   - 'managed'
 images:
-- gcr.io/aawaz-uat/temp-samortech-com-3
+- gcr.io/aawaz-uat/test-build
